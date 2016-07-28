@@ -1,0 +1,496 @@
+
+using namespace std;
+
+template < size_t size >
+Char< size >::Char( ):
+               mSize(size),
+               array()
+{
+   mSize = size;
+   memset( array, 0, size );
+}
+
+template < size_t size >
+Char< size >::Char( const char *str ):
+               mSize(size),
+               array()
+{
+   mSize = size;
+   memset( array, 0, size );
+   STRNCPY( array, str, mSize );
+}
+
+template < size_t size >
+template < size_t n >
+Char< size >::Char( const Char< n > &rhsObj ):
+               mSize(size),
+               array()
+{
+   mSize = size;
+   memset( array, 0, size );
+   STRNCPY( array, rhsObj.get( ), size );
+}
+
+template < size_t size >
+Char < size >::Char( const char *pStart, const char *pEnd ):
+               mSize(size),
+               array()
+{
+   size_t len = pEnd-pStart;
+   //printf("%zu,%p,%p\n",len, pEnd, pStart);
+   memset( array, 0, size );
+   STRNCPY ( array, pStart, len );
+   //printf("len=%zu,sizeof(arr)=%zu\n",len,sizeof(array));
+}
+
+template < size_t size >
+template < size_t n >
+Char < size >::Char( const char *pStart, const char *pEnd ):
+               mSize(size),
+               array()
+{
+   size_t len = pEnd-pStart;
+   memset( array, 0, size );
+   STRNCPY ( array, pStart, len );
+}
+
+template < size_t size >
+Char< size >::~Char( )
+{
+   mSize = size;
+   memset( array, 0, mSize );
+}
+
+template < size_t size >
+template < size_t n >
+Char< size > &
+Char< size >::operator = ( const Char< n > &rhsObj )
+{
+   reset( );
+   STRNCPY( array, rhsObj.get( ), size );
+   return *this;
+}
+
+template < size_t size >
+Char< size > &
+Char< size >::operator = ( const char *rhsString )
+{
+   reset( );
+   STRNCPY( array, rhsString, size );
+   return *this;
+}
+
+template < size_t size >
+template < size_t n >
+bool
+Char< size >::operator == ( const Char< n > &obj )
+{
+   return ( !strcmp( get( ), obj.get( ) ) );
+}
+
+template < size_t size >
+bool
+Char< size >::operator == ( const char *obj )
+{
+   return ( !strcmp( get( ), obj ) );
+}
+
+template < size_t size >
+template < size_t n >
+Char< size > 
+Char< size >::operator + ( const Char < n > &rhsObj )
+{
+   Char< size > retVal;
+   retVal = this->get( );
+   printf("size =%zu, len=%zu,%zu\n",size, len(),size-len());
+   strncat( retVal.array, rhsObj.get( ), size - len( ) );
+   //strcat( retVal.array, rhsObj.get( ) );
+   return retVal;
+}
+
+template < size_t size >
+Char< size > 
+Char< size >::operator + ( const char *rhsObj )
+{
+   Char< size > retVal;//( this->get( ) );
+   retVal = this->get( );
+   strncat( retVal.array, rhsObj, size - len( ) );
+   //strcat( retVal.array, rhsObj );
+   return retVal;
+}
+
+template < size_t size >
+template < size_t n >
+void
+Char< size >::operator += ( const Char < n > &rhsObj )
+{
+   strncat( array, rhsObj.get( ), size - len( ) );
+}
+
+template < size_t size >
+void
+Char< size >::operator += ( const char *rhsObj )
+{
+   strncat( array, rhsObj, size - len( ) );
+}
+
+template < size_t size >
+char
+Char< size >::operator [] ( unsigned int i )
+{
+   if( i < size )
+   {
+      return array[i];
+   }
+   return '\0';
+}
+
+template<size_t size>
+template<size_t n>
+bool
+Char<size>::operator< ( const Char<n> & rhsObj ) const
+{
+   return ( strcmp (array, rhsObj.get ( ) ) < 0 );
+}
+
+template<size_t size>
+bool
+Char<size>::operator< ( const Char<size> & rhsObj ) const
+{
+   return ( strcmp ( array, rhsObj.array ) < 0 );
+}
+
+template<size_t size>
+template<size_t n>
+bool
+Char<size>::operator> ( const Char<n> & rhsObj ) const
+{
+   return ( strcmp (array, rhsObj.get ( ) ) > 0 );
+}
+
+template < size_t size >
+size_t
+Char< size >::len() const
+{
+   return strlen( array );
+}
+
+template < size_t size >
+Char< size > &
+Char< size >::clear()
+{
+   memset( array, 0, mSize );
+   //mSize = 0;
+   return *this;
+}
+
+template < size_t size >
+bool
+Char< size >::compareString( const char *compareArray )
+{
+   printf("compareString:compareArray=%s,this->array=%s\n",
+               compareArray,array);
+   return ( !strcmp( array, compareArray ) );
+}
+
+#if 1
+template < size_t size >
+template < size_t n >
+int 
+Char< size >::tokenize( const char token, vector < Char < n > > 
+                                                &tokenList )
+{
+//   cout<<"AT START:"<< array <<endl;
+   char *pStart = array;
+   char *temp=NULL;
+   tokenList.clear();
+   while( strlen(pStart) ) 
+   {
+      temp=pStart;
+      while( '\0' != *temp && token != *temp )
+      {
+         temp++;
+      }
+      Char < n > tokenString( pStart, temp );
+      tokenList.push_back( tokenString );
+      while( NULL != temp && *temp == token)
+      { 
+         temp++; 
+      }
+      pStart = temp;
+   }
+   return 0;
+}
+#endif
+
+template < size_t size >
+void
+Char< size >::reset( )
+{
+   memset( array, 0, mSize );
+}
+
+template < size_t size >
+void
+Char< size >::setString( const char *str )
+{
+   reset( );
+   STRNCPY( array, str, size );
+}
+
+template < size_t size >
+template < size_t n >
+void
+Char< size >::setString( Char< n > &str )
+{
+   reset( );
+   setString( str.get( ) );
+}
+
+template < size_t size >
+const char *
+Char< size >::get( ) const
+{
+   return array;   
+}
+
+template < size_t size >
+void
+Char< size >::readString(const char *str)
+{
+   if ( NULL == str )
+   {
+      printf("You know what to enter!!!?");
+   }
+   else
+   {
+      printf("Enter %s:",str);
+   }
+   clear( );
+   scanf ("%[^\n]%*c", array);
+   if( !strlen(array) )
+   {
+      getchar();
+   }
+}
+
+template < size_t size >
+bool 
+Char< size >::isSubStr( const char *supStr,
+                        unsigned int &start, 
+                        unsigned int &end )
+{
+   bool retVal = false;
+   int i=0,j=0,k=0;
+   while( '\0' != array[i]  && '\0' != supStr[j] )
+   {
+      if( array[i] == supStr[k] )
+      {
+         i++; k++;
+         continue;
+      }
+      else
+      {
+         i=0; 
+         j++;
+         k = j;
+      }
+   }
+   if( len( ) == i )
+   {
+      start = j;
+      end = k;
+      retVal = true;
+   }
+   return retVal;
+}
+
+template < size_t size >
+template < size_t n >
+bool 
+Char< size >::isSubStr( const Char< n > &supStr,
+                        unsigned int &start,
+                        unsigned int &end )
+{
+   return isSubStr( supStr.get( ), start, end );
+}
+
+template < size_t size >
+Char< size >
+Char< size >::subStr( int start, int end )
+{
+   if( len( ) < start )
+   {
+      Char< size > retVal = "";
+      return retVal;
+   }
+   else if( len( ) < end && len( ) > start )
+   {
+      char *pStart = &array[start], *pEnd = &array[len( )];
+      Char< size > retVal( pStart, pEnd );
+      return retVal;
+   }
+   else
+   {
+      char *pStart = &array[start];
+      char *pEnd = &array[end];
+      Char< size > retVal( pStart, pEnd );
+      return retVal;
+   }
+}
+
+template < size_t size >
+void
+Char< size >::printString() const
+{
+   printf ("%s\n", array);
+}
+
+template < size_t size >
+template < size_t n >
+void 
+Char< size >::printVector( vector < Char < n > > &tokenList ) const
+{
+   //printf("printVector:---->\n");
+   typename vector< Char < n > >::const_iterator it;
+   for( it = tokenList.begin( ); it != tokenList.end( ); it++ )
+      printf("%s\n",(*it).get());
+}
+
+#if 0
+void printBool(bool bVal)
+{
+   char boolString[6];
+   memset( boolString,0,6 );
+   strcpy( boolString,"false" );
+
+   if( bVal )
+      strcpy(boolString,"true");
+   printf("printBool:%s\n",boolString);
+}
+#endif
+
+template< size_t size >
+int
+Char< size >::pos( const char inp, 
+                   int start,
+                   int end )
+{
+   int retVal = -1;
+   if( 0 > start )
+   {
+      start = 0;
+   }
+   if( start > end )
+   {
+      end = len( );
+   }
+   else if( len( ) < end )
+   {
+      end = len( );
+   }
+   const char *ptr = get( ); 
+   for( int i = start; i < end; i++ )
+   {
+      if( ptr[i] == inp )
+      {
+         retVal = i;
+         break;
+      }
+   }
+   return retVal;
+}
+
+template< size_t size >
+int
+Char< size >::pos( const char *inpStr, 
+                   int start,
+                   int end )
+{
+   int retVal = -1;
+   if( 0 > start )
+   {
+      start = 0;
+   }
+   if( start > end )
+   {
+      end = len( );
+   }
+   else if( len( ) < end )
+   {
+      end = len( );
+   }
+   const char *ptr = get( ); 
+   Char< size > tempSearchArray( ptr+start, ptr+end );
+   Char< size > subString( inpStr );
+   unsigned int startStrIndex, endStrIndex;
+   if( subString.isSubStr( tempSearchArray, startStrIndex, endStrIndex ) )
+   {
+      retVal = start + startStrIndex;
+   }
+   return retVal;
+}
+
+template< size_t size >
+template< size_t n >
+int
+Char< size >::pos( const Char< n > &inpStr, 
+                   int start,
+                   int end )
+{
+   return pos( inpStr.get( ), start, end );
+}
+
+template< size_t size >
+Char< size >
+Char< size >::trim( const char trimVal )
+{
+   ltrim( trimVal );
+   rtrim( trimVal );
+   Char< size > retVal( this->get( ) );
+   return retVal;
+}
+
+template< size_t size >
+Char< size >
+Char< size >::ltrim( const char trimVal )
+{
+   const char *tempStr = get( );
+   while( trimVal == *tempStr ) tempStr++; 
+   Char< size > retVal( tempStr );
+   setString( retVal );
+   return retVal;
+}
+
+template< size_t size >
+Char< size >
+Char< size >::rtrim( const char trimVal )
+{
+   const char *tempStr = get( );
+   tempStr = tempStr + len( ) - 1;
+   while( trimVal == *tempStr ) { tempStr--; }
+   Char< size > retVal( get( ), tempStr+1 );
+   setString( retVal );
+   return retVal;
+}
+
+
+#if 0
+int main( )
+{
+   Char< 30 > obj("1,2,3,4,5");
+   obj.printString();
+   vector < Char < 15 > > tokenList;
+   char token = ',';
+   //scanf("%c",&token);
+   obj.tokenize( token, tokenList );
+   #if 1
+   for ( vector < Char < 15 > >::iterator it = tokenList.begin( );
+            it!=tokenList.end( );it++)
+   {
+      cout<<(*it).get()<<endl;
+   }
+   #endif
+   return 0;
+}  
+#endif

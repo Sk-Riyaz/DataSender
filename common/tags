@@ -1,0 +1,26 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+MAX_NUMBER_OF_OBJECTS	CommonDefines.hh	58;"	d
+MESSAGE_TYPE	CommonDefines.hh	/^enum MESSAGE_TYPE$/;"	g
+MESSAGE_TYPE_END	CommonDefines.hh	/^   MESSAGE_TYPE_END$/;"	e	enum:MESSAGE_TYPE
+MESSAGE_TYPE_LOG	CommonDefines.hh	/^   MESSAGE_TYPE_LOG = 1,$/;"	e	enum:MESSAGE_TYPE
+MESSAGE_TYPE_UNKNOWN	CommonDefines.hh	/^   MESSAGE_TYPE_UNKNOWN = 0,$/;"	e	enum:MESSAGE_TYPE
+OBJS	Makefile	/^OBJS=	$(OBJDIR)\/CommonDefines.o $/;"	m
+Queue	MsgQueue.hh	/^class Queue$/;"	c
+STRNCAT	CommonDefines.hh	31;"	d
+STRNCPY	CommonDefines.hh	6;"	d
+UNUSED_ARG	CommonDefines.hh	4;"	d
+__COMMON_DEFINES_HH__	CommonDefines.hh	2;"	d
+__COMMON_INCLUDES_HH__	CommonIncludes.hh	2;"	d
+__MSG_QUEUE_HH__	MsgQueue.hh	2;"	d
+getCurrentTimeInMicroSec	CommonDefines.cc	/^long long int getCurrentTimeInMicroSec( )$/;"	f
+getCurrentTimeInMilliSec	CommonDefines.cc	/^long long int getCurrentTimeInMilliSec( )$/;"	f
+getCurrentTimeInSec	CommonDefines.cc	/^long int getCurrentTimeInSec( )$/;"	f
+getCurrentTimeWithMicroSec	CommonDefines.cc	/^double getCurrentTimeWithMicroSec( )$/;"	f
+getCurrentTimeWithMilliSec	CommonDefines.cc	/^double getCurrentTimeWithMilliSec( )$/;"	f
+lock_queue	MsgQueue.hh	/^      pthread_mutex_t lock_queue;$/;"	m	class:Queue
+mQueue	MsgQueue.hh	/^      std::deque< T > mQueue;$/;"	m	class:Queue

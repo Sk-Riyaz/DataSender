@@ -1,0 +1,58 @@
+//#include "MsgQueue.hh"
+
+template< class T >
+Queue< T >::Queue( )
+{
+   lock_queue = PTHREAD_MUTEX_INITIALIZER;
+   mQueue.clear( );
+   //printf( "Constructor" );
+}
+
+template< class T >
+Queue< T >::~Queue( )
+{
+   //print( DEBUG, "Destructor" );
+}
+
+template< class T >
+int
+Queue< T >::putq( T msg, int waitTime )
+{
+   UNUSED_ARG( waitTime );
+   pthread_mutex_lock( &lock_queue );
+   mQueue.push_back( msg );
+   pthread_mutex_unlock( &lock_queue );
+   return 0;
+}
+
+template< class T >
+T
+Queue< T >::getq( )
+{
+   pthread_mutex_lock(&lock_queue);
+   T retMsg = 0;
+   if( !mQueue.empty( ) )
+   {
+      retMsg = mQueue.front();
+      mQueue.pop_front( );
+   }
+   pthread_mutex_unlock(&lock_queue);
+   return retMsg;
+}
+
+template< class T >
+unsigned int
+Queue< T >::size( )
+{
+   pthread_mutex_lock( &lock_queue );
+   unsigned int queueSize = mQueue.size();
+   pthread_mutex_unlock( &lock_queue );
+   return queueSize;
+}
+
+#if 0
+int main()
+{
+
+}
+#endif
