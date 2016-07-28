@@ -92,7 +92,6 @@ DataHandler::processMsg( MsgBase *incomingMsg )
       else
       {
          processDataMessage( pDataMsg );
-         MSG_POOL_INTERFACE->releaseMsg( incomingMsg );
       }
    }
 }
@@ -107,7 +106,8 @@ DataHandler::processDataMessage( DataMsg *pDataMsg )
       print( CRITICAL, "pDataMsg is NULL" );
       return -1;
    }
-   writeDatatoFile( pDataMsg->getFileName( ), pDataMsg->getFileData( ));
+   writeDatatoFile( pDataMsg->getFileName( ), 
+         pDataMsg->getFileData( ), pDataMsg->getDataSize( ) );
 #if 0
    Name2Data::iterator it = mName2Data.find( pDataMsg->getFileName( ) );
    if( it != mName2Data.end( ) )
@@ -127,26 +127,24 @@ DataHandler::processDataMessage( DataMsg *pDataMsg )
    return 0;
 }
 
-void
-DataHandler::writeDatatoFile( Char< MAX_FILE_NAME >fileName, const char *data)
+int
+DataHandler::writeDatatoFile( Char< MAX_FILE_NAME >fileName, const char *data, size_t dataSize )
 {
-   //printf("writeDatatoFile::function called-->fileName:%s\n", fileName.get( ));
-   print(CRITICAL, "function called" );
+   print( DEBUG, "function called" );
    FILE *fp = fopen( fileName.get( ), "ab" );
    if( NULL == fp )
    {
       print( ERROR, "unable to open file: %s", fileName.get( ) );
-      return;
+      return -1;
    }
 
    unsigned char charData[MAX_DATA_SIZE];
    memset( charData, 0, MAX_DATA_SIZE );
-   memcpy( charData, data, MAX_DATA_SIZE );
-   //size_t sizeOfData = strlen((char *)charData );
-   unsigned int i = fwrite( charData, sizeof(char), MAX_DATA_SIZE, fp );
-   std::cout<<i<<std::endl;
-   //cout<<"written:"<<fwrite( charData, sizeof(char), MAX_DATA_SIZE, fp)<<"data.len( ):"<<data.len( )<<std::endl;
+   memcpy( charData, data, dataSize );
+   unsigned int i = fwrite( charData, sizeof(char), dataSize, fp );
+   print( DEBUG, "Data written:%u", i );
    fclose( fp );
+   return 0;
 }
 
 

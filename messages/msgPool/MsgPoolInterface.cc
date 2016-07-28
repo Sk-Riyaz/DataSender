@@ -73,10 +73,12 @@ MsgPoolInterface::releaseMsg( MsgBase *releaseObject )
       {
          case MESSAGE_TYPE_LOG:
             retVal = LOG_MSG_POOL->releaseObj( releaseObject );
+         std::cout<<__FUNCTION__<<":"<<__LINE__<<"relase 1"<<std::endl;
             break;
 
          case MESSAGE_TYPE_DATA:
             retVal = DATA_MSG_POOL->releaseObj( releaseObject );
+         std::cout<<__FUNCTION__<<":"<<__LINE__<<"relase 2"<<std::endl;
             break;
 
          default:
@@ -94,10 +96,12 @@ MsgPoolInterface::releaseMsg( MESSAGE_TYPE eType, unsigned int msgId )
    {
       case MESSAGE_TYPE_LOG:
          retVal = LOG_MSG_POOL->releaseObj( msgId );
+         std::cout<<__FUNCTION__<<":"<<__LINE__<<"relase 1"<<std::endl;
          break;
 
       case MESSAGE_TYPE_DATA:
          retVal = DATA_MSG_POOL->releaseObj( msgId );
+         std::cout<<__FUNCTION__<<":"<<__LINE__<<"relase 2"<<std::endl;
          break;
 
       default:

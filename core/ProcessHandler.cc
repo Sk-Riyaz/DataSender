@@ -115,8 +115,13 @@ ProcessHandler::sendData( Char<MAX_FILE_NAME>&fileName )
       //out = fopen("0012.mp3", "ab");
       char temp[MAX_DATA_SIZE];
       memset( temp, 0, MAX_DATA_SIZE );
-      memcpy( temp, buffer+i, MAX_DATA_SIZE );
-      i += MAX_DATA_SIZE;
+      unsigned int max = MAX_DATA_SIZE;
+      if( lSize -i < max )
+      {
+         max = lSize -i;
+      }
+      memcpy( temp, buffer+i, max );
+      i += max;
       //i = i+fwrite( temp, sizeof(char), MAX_DATA_SIZE, out );
       //fclose(out);
       DataMsg *pDataMsg = dynamic_cast< DataMsg * >
@@ -128,6 +133,7 @@ ProcessHandler::sendData( Char<MAX_FILE_NAME>&fileName )
       }
       pDataMsg->setFileName( fileName );
       pDataMsg->setFileData( temp, MAX_DATA_SIZE );
+      pDataMsg->setDataSize( max );
       std::cout<<"allcoated msg:"<<pDataMsg
          <<"msgId:"<<pDataMsg->getMsgId( )
          //<<"data.len( ):"<<pDataMsg->getFileData( ).len( )

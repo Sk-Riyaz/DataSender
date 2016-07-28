@@ -63,3 +63,15 @@ DataMsg::getFileData( ) const
    return mFileData;
 }
 
+void
+DataMsg::setDataSize( size_t size )
+{
+   mDataSize = size;
+}
+
+size_t
+DataMsg::getDataSize( ) const
+{
+   return mDataSize;
+}
+

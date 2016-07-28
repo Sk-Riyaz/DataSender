@@ -11,6 +11,7 @@ class DataMsg: public MsgBase
       unsigned int msgId;
       Char< MAX_FILE_NAME > mFileName;
       char mFileData[MAX_DATA_SIZE];
+      size_t mDataSize;
 
    public:
       DataMsg( unsigned int i );
@@ -21,6 +22,8 @@ class DataMsg: public MsgBase
       const Char< MAX_FILE_NAME >& getFileName( ) const;
       void setFileData( char *ptr, size_t size );
       const char *getFileData( ) const;
+      void setDataSize( size_t size );
+      size_t getDataSize( ) const;
 };
 
 #endif

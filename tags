@@ -124,6 +124,7 @@ getCurrentTimeInMilliSec	common/CommonDefines.cc	/^long long int getCurrentTimeI
 getCurrentTimeInSec	common/CommonDefines.cc	/^long int getCurrentTimeInSec( )$/;"	f
 getCurrentTimeWithMicroSec	common/CommonDefines.cc	/^double getCurrentTimeWithMicroSec( )$/;"	f
 getCurrentTimeWithMilliSec	common/CommonDefines.cc	/^double getCurrentTimeWithMilliSec( )$/;"	f
+getDataSize	messages/DataMsg.cc	/^DataMsg::getDataSize( ) const$/;"	f	class:DataMsg
 getFileData	messages/DataMsg.cc	/^DataMsg::getFileData( ) const$/;"	f	class:DataMsg
 getFileName	messages/DataMsg.cc	/^DataMsg::getFileName( ) const$/;"	f	class:DataMsg
 getInstance	core/DataHandler.cc	/^DataHandler::getInstance( )$/;"	f	class:DataHandler
@@ -150,6 +151,7 @@ isLogMsgObjAvailable	messages/msgPool/LogMsgPool.hh	/^      bool isLogMsgObjAvai
 killAll	core/Main.cc	/^Main::killAll( )$/;"	f	class:Main
 lock_queue	common/MsgQueue.hh	/^      pthread_mutex_t lock_queue;$/;"	m	class:Queue
 logInfo	utils/LogDefine.cc	/^void logInfo( LOG_TYPE eLogType, const char *functionName, const char *format, ... )$/;"	f
+mDataSize	messages/DataMsg.hh	/^      size_t mDataSize;$/;"	m	class:DataMsg
 mFileData	messages/DataMsg.hh	/^      char mFileData[MAX_DATA_SIZE];$/;"	m	class:DataMsg
 mFileName	messages/DataMsg.hh	/^      Char< MAX_FILE_NAME > mFileName;$/;"	m	class:DataMsg
 mInstance	messages/msgPool/DataMsgPool.cc	/^DataMsgPool::mInstance = 0;$/;"	m	class:DataMsgPool	file:
@@ -199,6 +201,7 @@ releaseObj	messages/msgPool/LogMsgPool.cc	/^LogMsgPool::releaseObj( unsigned int
 reset	messages/DataMsg.cc	/^DataMsg::reset()$/;"	f	class:DataMsg
 reset	messages/LogMsg.cc	/^LogMsg::reset()$/;"	f	class:LogMsg
 sendData	core/ProcessHandler.cc	/^ProcessHandler::sendData( Char<MAX_FILE_NAME>&fileName )$/;"	f	class:ProcessHandler
+setDataSize	messages/DataMsg.cc	/^DataMsg::setDataSize( size_t size )$/;"	f	class:DataMsg
 setFileData	messages/DataMsg.cc	/^DataMsg::setFileData( char *ptr, size_t size )$/;"	f	class:DataMsg
 setFileName	messages/DataMsg.cc	/^DataMsg::setFileName( const Char< MAX_FILE_NAME >&fileName )$/;"	f	class:DataMsg
 setStr	messages/LogMsg.cc	/^LogMsg::setStr( const Char< MAX_LOG_SIZE >&logStr )$/;"	f	class:LogMsg
@@ -207,7 +210,7 @@ start	core/DataHandler.cc	/^DataHandler::start( )$/;"	f	class:DataHandler
 start	core/LogHandler.cc	/^LogHandler::start( )$/;"	f	class:LogHandler
 start	core/Main.cc	/^Main::start( )$/;"	f	class:Main
 start	core/ProcessHandler.cc	/^ProcessHandler::start( )$/;"	f	class:ProcessHandler
-writeDatatoFile	core/DataHandler.cc	/^DataHandler::writeDatatoFile( Char< MAX_FILE_NAME >fileName, char *data)$/;"	f	class:DataHandler
+writeDatatoFile	core/DataHandler.cc	/^DataHandler::writeDatatoFile( Char< MAX_FILE_NAME >fileName, const char *data, size_t sizeOfData )$/;"	f	class:DataHandler
 writeToFile	core/LogHandler.cc	/^LogHandler::writeToFile( Char<MAX_LOG_SIZE> logMsg )$/;"	f	class:LogHandler
 ~DataHandler	core/DataHandler.cc	/^DataHandler::~DataHandler( )$/;"	f	class:DataHandler
 ~DataMsg	messages/DataMsg.cc	/^DataMsg::~DataMsg()$/;"	f	class:DataMsg

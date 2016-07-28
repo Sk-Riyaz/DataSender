@@ -26,7 +26,7 @@ class DataHandler
       void start( );
       void processMsg( MsgBase *incomingMsg );
       int processDataMessage( DataMsg *pDataMsg );
-      void writeDatatoFile( Char< MAX_FILE_NAME >fileName, const char *data);
+      int writeDatatoFile( Char< MAX_FILE_NAME >fileName, const char *data, size_t dataSize );
 };
 
 
